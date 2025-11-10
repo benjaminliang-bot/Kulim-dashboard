@@ -40,8 +40,10 @@ def generate_metrics_query():
             COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.order_id END) as completed_orders,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv,
             AVG(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value END) as avg_order_value
-        FROM ocd_adw.f_food_booking f
+        FROM ocd_adw.f_food_metrics f
         WHERE f.city_id = 13
+            AND f.country_id = 1
+            AND f.business_type = 0
             AND f.merchant_id IN (SELECT merchant_id_nk FROM kulim_merchants)
             AND CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) IN (202509, 202510, 202511)
         GROUP BY CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER)
