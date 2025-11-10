@@ -36,7 +36,7 @@ def generate_metrics_query():
             CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) as month_id,
             COUNT(DISTINCT f.merchant_id) as active_merchants,
             COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.passenger_id END) as unique_passengers,
-            COUNT(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN 1 END) as completed_orders,
+            COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.order_id END) as completed_orders,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv,
             AVG(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value END) as avg_order_value
         FROM ocd_adw.f_food_booking f

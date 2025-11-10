@@ -72,11 +72,13 @@ def generate_kulim_gmv_monthly_query() -> str:
             CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) as month_id,
             COUNT(DISTINCT f.merchant_id) as active_merchants,
             COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.passenger_id END) as unique_passengers,
-            COUNT(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN 1 END) as completed_orders,
+            COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.order_id END) as completed_orders,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv,
             AVG(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value END) as avg_order_value
-        FROM ocd_adw.f_food_booking f
+        FROM ocd_adw.f_food_metrics f
         WHERE f.city_id = 13
+            AND f.country_id = 1
+            AND f.business_type = 0
             AND f.merchant_id IN (SELECT merchant_id_nk FROM kulim_merchants)
             AND CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) IN (202509, 202510, 202511)
         GROUP BY CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER)
@@ -120,11 +122,13 @@ def generate_kulim_merchant_performance_query() -> str:
         SELECT 
             f.merchant_id,
             COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.passenger_id END) as unique_passengers,
-            COUNT(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN 1 END) as completed_orders,
+            COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.order_id END) as completed_orders,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv,
             AVG(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value END) as avg_order_value
-        FROM ocd_adw.f_food_booking f
+        FROM ocd_adw.f_food_metrics f
         WHERE f.city_id = 13
+            AND f.country_id = 1
+            AND f.business_type = 0
             AND f.merchant_id IN (SELECT merchant_id_nk FROM kulim_merchants)
             AND CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) IN (202509, 202510, 202511)
         GROUP BY f.merchant_id
@@ -178,11 +182,11 @@ def generate_kulim_campaign_participation_query() -> str:
                 AND f.promo_code != ''
                 THEN f.promo_code 
             END) as unique_campaigns,
-            COUNT(CASE 
+            COUNT(DISTINCT CASE 
                 WHEN f.booking_state_simple = 'COMPLETED' 
                 AND f.promo_code IS NOT NULL 
                 AND f.promo_code != ''
-                THEN 1 
+                THEN f.order_id 
             END) as campaign_orders,
             SUM(CASE 
                 WHEN f.booking_state_simple = 'COMPLETED' 
@@ -191,10 +195,12 @@ def generate_kulim_campaign_participation_query() -> str:
                 THEN f.gross_merchandise_value 
                 ELSE 0 
             END) as campaign_gmv,
-            COUNT(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN 1 END) as total_orders,
+            COUNT(DISTINCT CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.order_id END) as total_orders,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv
-        FROM ocd_adw.f_food_booking f
+        FROM ocd_adw.f_food_metrics f
         WHERE f.city_id = 13
+            AND f.country_id = 1
+            AND f.business_type = 0
             AND f.merchant_id IN (SELECT merchant_id_nk FROM kulim_merchants)
             AND CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) IN (202509, 202510, 202511)
         GROUP BY f.merchant_id, CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER)
@@ -253,8 +259,10 @@ def generate_kulim_segmentation_analysis_query() -> str:
             f.merchant_id,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv,
             COUNT(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN 1 END) as completed_orders
-        FROM ocd_adw.f_food_booking f
+        FROM ocd_adw.f_food_metrics f
         WHERE f.city_id = 13
+            AND f.country_id = 1
+            AND f.business_type = 0
             AND f.merchant_id IN (SELECT merchant_id_nk FROM kulim_merchants)
             AND CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) IN (202509, 202510, 202511)
         GROUP BY f.merchant_id
@@ -302,8 +310,10 @@ def generate_kulim_t20_analysis_query() -> str:
             f.merchant_id,
             SUM(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN f.gross_merchandise_value ELSE 0 END) as total_gmv,
             COUNT(CASE WHEN f.booking_state_simple = 'COMPLETED' THEN 1 END) as completed_orders
-        FROM ocd_adw.f_food_booking f
+        FROM ocd_adw.f_food_metrics f
         WHERE f.city_id = 13
+            AND f.country_id = 1
+            AND f.business_type = 0
             AND f.merchant_id IN (SELECT merchant_id_nk FROM kulim_merchants)
             AND CAST(SUBSTRING(CAST(f.date_id AS VARCHAR), 1, 6) AS INTEGER) IN (202509, 202510, 202511)
         GROUP BY f.merchant_id
