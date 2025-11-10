@@ -1,0 +1,11 @@
+{
+  "commands": [
+    {
+      "name": "update-kulim",
+      "command": "py update_kulim.py",
+      "description": "Update Kulim dashboard - generates SQL query and updates metrics",
+      "category": "Kulim Dashboard"
+    }
+  ]
+}
+
