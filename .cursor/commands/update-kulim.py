@@ -1,49 +1,42 @@
-#!/usr/bin/env python3
 """
-Cursor Command Handler: update-kulim
-Executes the update_kulim.py script to generate SQL query and update Kulim dashboard
+Cursor command handler for update-kulim
+This script is executed when user types /update-kulim in Cursor chat
 """
 
 import os
 import sys
 import subprocess
 
-def main():
-    """Execute the update-kulim script"""
-    # Get the workspace root directory
-    workspace_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    
-    # Change to workspace directory
-    os.chdir(workspace_root)
-    
-    # Path to the update script
-    update_script = os.path.join(workspace_root, 'update_kulim.py')
-    
-    if not os.path.exists(update_script):
-        print(f"ERROR: update_kulim.py not found at {update_script}")
-        return 1
-    
+# Get the Python script directory (parent of .cursor/commands)
+# File structure: Python/.cursor/commands/update-kulim.py
+# We need: Python/update_kulim.py
+current_file = os.path.abspath(__file__)
+commands_dir = os.path.dirname(current_file)  # .cursor/commands
+cursor_dir = os.path.dirname(commands_dir)     # .cursor
+script_dir = os.path.dirname(cursor_dir)       # Python/
+
+# Change to script directory
+os.chdir(script_dir)
+
+# Import and run the main update script
+if __name__ == '__main__':
     try:
-        # Execute the update script
-        print("=" * 80)
-        print("EXECUTING UPDATE-KULIM COMMAND")
-        print("=" * 80)
-        print()
+        script_path = os.path.join(script_dir, "update_kulim.py")
         
-        # Run the script
+        # Verify script exists
+        if not os.path.exists(script_path):
+            print(f"❌ Error: Script not found at {script_path}")
+            sys.exit(1)
+        
+        # Execute the main update script
         result = subprocess.run(
-            [sys.executable, update_script],
-            cwd=workspace_root,
+            [sys.executable, script_path],
+            cwd=script_dir,
             capture_output=False,
             text=True
         )
-        
-        return result.returncode
-        
+        sys.exit(result.returncode)
     except Exception as e:
-        print(f"ERROR: Failed to execute update_kulim.py: {e}")
-        return 1
-
-if __name__ == '__main__':
-    sys.exit(main())
+        print(f"❌ Error: {e}")
+        sys.exit(1)
 
