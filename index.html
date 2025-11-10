@@ -393,28 +393,29 @@
         // Commercial Metrics Data
         // ACTUAL DATA from Hubble/Presto query (f_food_metrics table)
         // Query executed: 2025-11-10
+        // Updated: Using area_id from d_area (geohash prefix matching)
         const commercialMetrics = {
             september: {
-                gmv: 1892587.28, // RM - Actual GMV
-                orders: 56490, // Actual completed orders
-                merchants: 372, // Active merchants
-                passengers: 19427, // Unique passengers
-                aov: 33.50 // RM - Average order value
+                gmv: 1606330.41, // RM - Actual GMV (area_id-based)
+                orders: 47049, // Actual completed orders
+                merchants: 298, // Active merchants
+                passengers: 17449, // Unique passengers
+                aov: 34.14 // RM - Average order value
             },
             october: {
-                gmv: 2018636.08, // RM - Actual GMV (+6.66% MoM)
-                orders: 60669, // Actual completed orders
-                merchants: 382, // Active merchants (+10)
-                passengers: 20252, // Unique passengers
-                aov: 33.27 // RM - Average order value
+                gmv: 1734436.13, // RM - Actual GMV (+8.0% MoM)
+                orders: 51309, // Actual completed orders
+                merchants: 308, // Active merchants (+10)
+                passengers: 18338, // Unique passengers
+                aov: 33.80 // RM - Average order value
             },
             november: {
                 // Partial month (through Nov 10, 2025) - actual data
-                gmv: 588553.94, // RM - Actual GMV (partial month)
-                orders: 18026, // Actual completed orders (partial month)
-                merchants: 348, // Active merchants
-                passengers: 9795, // Unique passengers (partial month)
-                aov: 32.65 // RM - Average order value
+                gmv: 510252.69, // RM - Actual GMV (partial month)
+                orders: 15338, // Actual completed orders (partial month)
+                merchants: 283, // Active merchants
+                passengers: 8699, // Unique passengers (partial month)
+                aov: 33.27 // RM - Average order value
             }
         };
 
@@ -686,8 +687,9 @@
             <div class="insight" style="background: rgba(76, 175, 80, 0.2); border-left: 4px solid #4CAF50; margin-top: 20px;">
                 <strong>✓ Data Source:</strong> Commercial metrics loaded from <strong>actual query results</strong> via Hubble/Presto MCP tools.<br>
                 <strong>Table:</strong> <code>ocd_adw.f_food_metrics</code> | <strong>Query Date:</strong> 2025-11-10<br>
+                <strong>Method:</strong> Using <code>area_id</code> from <code>d_area</code> table (geohash prefix matching) for accurate Kulim area classification.<br>
                 <strong>Note:</strong> November data is partial (through Nov 10, 2025) - represents ~33% of the month.<br>
-                <strong>Key Insight:</strong> October showed strong +6.66% MoM GMV growth, with merchant base expanding from 372 to 382 active merchants.
+                <strong>Key Insight:</strong> October showed strong +8.0% MoM GMV growth, with merchant base expanding from 298 to 308 active merchants.
             </div>
         </div>
 
