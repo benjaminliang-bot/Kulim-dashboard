@@ -55,17 +55,18 @@ def generate_kulim_gmv_monthly_query() -> str:
         SELECT DISTINCT area_id
         FROM ocd_adw.d_area
         WHERE city_id = 13 
-            AND LOWER(area_name) LIKE '%kulim%'
+            AND area_name = 'Kulim'  -- Exact match to match dashboard numbers
     ),
     kulim_merchants AS (
         SELECT DISTINCT m.merchant_id_nk
         FROM ocd_adw.d_merchant m
         INNER JOIN ocd_adw.d_area a 
             ON m.city_id = a.city_id 
-            AND m.geohash = a.geohash
+            AND SUBSTRING(m.geohash, 1, 6) = SUBSTRING(a.geohash, 1, 6)
         INNER JOIN kulim_areas ka ON a.area_id = ka.area_id
         WHERE m.city_id = 13 
             AND m.status = 'ACTIVE'
+            AND m.geohash IS NOT NULL
     ),
     monthly_gmv AS (
         SELECT 
@@ -106,7 +107,7 @@ def generate_kulim_merchant_performance_query() -> str:
         SELECT DISTINCT area_id
         FROM ocd_adw.d_area
         WHERE city_id = 13 
-            AND LOWER(area_name) LIKE '%kulim%'
+            AND area_name = 'Kulim'  -- Exact match to match dashboard numbers
     ),
     kulim_merchants AS (
         SELECT DISTINCT m.merchant_id_nk, m.merchant_name, m.segment, m.custom_segment, m.am_name
@@ -160,17 +161,18 @@ def generate_kulim_campaign_participation_query() -> str:
         SELECT DISTINCT area_id
         FROM ocd_adw.d_area
         WHERE city_id = 13 
-            AND LOWER(area_name) LIKE '%kulim%'
+            AND area_name = 'Kulim'  -- Exact match to match dashboard numbers
     ),
     kulim_merchants AS (
         SELECT DISTINCT m.merchant_id_nk
         FROM ocd_adw.d_merchant m
         INNER JOIN ocd_adw.d_area a 
             ON m.city_id = a.city_id 
-            AND m.geohash = a.geohash
+            AND SUBSTRING(m.geohash, 1, 6) = SUBSTRING(a.geohash, 1, 6)
         INNER JOIN kulim_areas ka ON a.area_id = ka.area_id
         WHERE m.city_id = 13 
             AND m.status = 'ACTIVE'
+            AND m.geohash IS NOT NULL
     ),
     campaign_data AS (
         SELECT 
@@ -235,7 +237,7 @@ def generate_kulim_segmentation_analysis_query() -> str:
         SELECT DISTINCT area_id
         FROM ocd_adw.d_area
         WHERE city_id = 13 
-            AND LOWER(area_name) LIKE '%kulim%'
+            AND area_name = 'Kulim'  -- Exact match to match dashboard numbers
     ),
     kulim_merchants AS (
         SELECT 
@@ -293,7 +295,7 @@ def generate_kulim_t20_analysis_query() -> str:
         SELECT DISTINCT area_id
         FROM ocd_adw.d_area
         WHERE city_id = 13 
-            AND LOWER(area_name) LIKE '%kulim%'
+            AND area_name = 'Kulim'  -- Exact match to match dashboard numbers
     ),
     kulim_merchants AS (
         SELECT DISTINCT m.merchant_id_nk, m.merchant_name, m.segment, m.custom_segment, m.am_name
