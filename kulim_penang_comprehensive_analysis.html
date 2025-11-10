@@ -439,36 +439,48 @@
         function updateCommercialMetrics() {
             try {
                 console.log('Updating commercial metrics...', commercialMetrics);
-                // Calculate totals
+                // Calculate monthly averages (Sep till date)
+                // Count number of months with data
+                const monthsWithData = [];
+                if (commercialMetrics.september && commercialMetrics.september.gmv) monthsWithData.push('september');
+                if (commercialMetrics.october && commercialMetrics.october.gmv) monthsWithData.push('october');
+                if (commercialMetrics.november && commercialMetrics.november.gmv) monthsWithData.push('november');
+                const monthCount = monthsWithData.length;
+                
+                // Calculate monthly averages
                 const totalGMV = (commercialMetrics.september.gmv || 0) + 
                                 (commercialMetrics.october.gmv || 0) + 
                                 (commercialMetrics.november.gmv || 0);
+                const avgMonthlyGMV = monthCount > 0 ? totalGMV / monthCount : null;
+                
                 const totalOrders = (commercialMetrics.september.orders || 0) + 
                                    (commercialMetrics.october.orders || 0) + 
                                    (commercialMetrics.november.orders || 0);
-                const maxMerchants = Math.max(
-                    commercialMetrics.september.merchants || 0,
-                    commercialMetrics.october.merchants || 0,
-                    commercialMetrics.november.merchants || 0
-                );
-                const maxPassengers = Math.max(
-                    commercialMetrics.september.passengers || 0,
-                    commercialMetrics.october.passengers || 0,
-                    commercialMetrics.november.passengers || 0
-                );
-                const avgAOV = totalOrders > 0 ? totalGMV / totalOrders : null;
+                const avgMonthlyOrders = monthCount > 0 ? totalOrders / monthCount : null;
+                
+                const avgMerchants = monthCount > 0 ? 
+                    ((commercialMetrics.september.merchants || 0) + 
+                     (commercialMetrics.october.merchants || 0) + 
+                     (commercialMetrics.november.merchants || 0)) / monthCount : null;
+                
+                const avgPassengers = monthCount > 0 ?
+                    ((commercialMetrics.september.passengers || 0) + 
+                     (commercialMetrics.october.passengers || 0) + 
+                     (commercialMetrics.november.passengers || 0)) / monthCount : null;
+                
+                const avgAOV = avgMonthlyOrders > 0 ? avgMonthlyGMV / avgMonthlyOrders : null;
 
-                // Update total metrics
+                // Update average metrics
                 const totalGmvEl = document.getElementById('total-gmv');
                 const totalOrdersEl = document.getElementById('total-orders');
                 const activeMerchantsEl = document.getElementById('active-merchants');
                 const uniquePassengersEl = document.getElementById('unique-passengers');
                 const avgOrderValueEl = document.getElementById('avg-order-value');
                 
-                if (totalGmvEl) totalGmvEl.textContent = formatCurrency(totalGMV);
-                if (totalOrdersEl) totalOrdersEl.textContent = formatNumber(totalOrders);
-                if (activeMerchantsEl) activeMerchantsEl.textContent = formatNumber(maxMerchants);
-                if (uniquePassengersEl) uniquePassengersEl.textContent = formatNumber(maxPassengers);
+                if (totalGmvEl) totalGmvEl.textContent = formatCurrency(avgMonthlyGMV);
+                if (totalOrdersEl) totalOrdersEl.textContent = formatNumber(Math.round(avgMonthlyOrders));
+                if (activeMerchantsEl) activeMerchantsEl.textContent = formatNumber(Math.round(avgMerchants));
+                if (uniquePassengersEl) uniquePassengersEl.textContent = formatNumber(Math.round(avgPassengers));
                 if (avgOrderValueEl) avgOrderValueEl.textContent = formatCurrency(avgAOV);
 
                 // Update monthly breakdown
@@ -518,8 +530,8 @@
                         '<span class="' + changeClass + '">' + (parseFloat(novVsOct) >= 0 ? '+' : '') + novVsOct + '</span>';
                 }
 
-                // Update change indicators
-                const gmvChange = calculateChange(totalGMV, commercialMetrics.september.gmv);
+                // Update change indicators (comparing average vs September baseline)
+                const gmvChange = calculateChange(avgMonthlyGMV, commercialMetrics.september.gmv);
                 const gmvChangeEl = document.getElementById('gmv-change');
                 if (gmvChange && gmvChangeEl) {
                     const changeClass = parseFloat(gmvChange) >= 0 ? 'change-positive' : 'change-negative';
@@ -533,28 +545,28 @@
                 const passengersChangeEl = document.getElementById('passengers-change');
                 const aovChangeEl = document.getElementById('aov-change');
                 
-                const ordersChange = calculateChange(totalOrders, commercialMetrics.september.orders);
+                const ordersChange = calculateChange(avgMonthlyOrders, commercialMetrics.september.orders);
                 if (ordersChange && ordersChangeEl) {
                     const changeClass = parseFloat(ordersChange) >= 0 ? 'change-positive' : 'change-negative';
-                    ordersChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(ordersChange) >= 0 ? '+' : '') + ordersChange + '</span>';
+                    ordersChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(ordersChange) >= 0 ? '+' : '') + ordersChange + ' vs Sep</span>';
                 }
                 
-                const merchantsChange = calculateChange(maxMerchants, commercialMetrics.september.merchants);
+                const merchantsChange = calculateChange(avgMerchants, commercialMetrics.september.merchants);
                 if (merchantsChange && merchantsChangeEl) {
                     const changeClass = parseFloat(merchantsChange) >= 0 ? 'change-positive' : 'change-negative';
-                    merchantsChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(merchantsChange) >= 0 ? '+' : '') + merchantsChange + '</span>';
+                    merchantsChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(merchantsChange) >= 0 ? '+' : '') + merchantsChange + ' vs Sep</span>';
                 }
                 
-                const passengersChange = calculateChange(maxPassengers, commercialMetrics.september.passengers);
+                const passengersChange = calculateChange(avgPassengers, commercialMetrics.september.passengers);
                 if (passengersChange && passengersChangeEl) {
                     const changeClass = parseFloat(passengersChange) >= 0 ? 'change-positive' : 'change-negative';
-                    passengersChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(passengersChange) >= 0 ? '+' : '') + passengersChange + '</span>';
+                    passengersChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(passengersChange) >= 0 ? '+' : '') + passengersChange + ' vs Sep</span>';
                 }
                 
                 const aovChange = calculateChange(avgAOV, commercialMetrics.september.aov);
                 if (aovChange && aovChangeEl) {
                     const changeClass = parseFloat(aovChange) >= 0 ? 'change-positive' : 'change-negative';
-                    aovChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(aovChange) >= 0 ? '+' : '') + aovChange + '</span>';
+                    aovChangeEl.innerHTML = '<span class="' + changeClass + '">' + (parseFloat(aovChange) >= 0 ? '+' : '') + aovChange + ' vs Sep</span>';
                 }
             } catch (error) {
                 console.error('Error updating commercial metrics:', error);
@@ -621,22 +633,22 @@
         <div class="commercial-metrics">
             <h2>Kulim Commercial Metrics Overview</h2>
             <p style="font-size: 1.1em; margin-bottom: 20px; opacity: 0.9;">
-                Overall performance metrics for Kulim, Penang (September - November 2025)
+                Monthly average performance metrics for Kulim, Penang (September - November 2025)
             </p>
             
             <div class="metrics-row">
                 <div class="commercial-metric-card">
-                    <div class="commercial-metric-label">Total GMV</div>
+                    <div class="commercial-metric-label">Average Monthly GMV</div>
                     <div class="commercial-metric-value" id="total-gmv">RM [TBD]</div>
                     <div class="commercial-metric-change" id="gmv-change">[Loading data...]</div>
                 </div>
                 <div class="commercial-metric-card">
-                    <div class="commercial-metric-label">Completed Orders</div>
+                    <div class="commercial-metric-label">Average Monthly Orders</div>
                     <div class="commercial-metric-value" id="total-orders">[TBD]</div>
                     <div class="commercial-metric-change" id="orders-change">[Loading data...]</div>
                 </div>
                 <div class="commercial-metric-card">
-                    <div class="commercial-metric-label">Active Merchants</div>
+                    <div class="commercial-metric-label">Average Active Merchants</div>
                     <div class="commercial-metric-value" id="active-merchants">[TBD]</div>
                     <div class="commercial-metric-change" id="merchants-change">[Loading data...]</div>
                 </div>
@@ -690,8 +702,8 @@
                 <strong>Table:</strong> <code>ocd_adw.f_food_metrics</code> | <strong>Query Date:</strong> 2025-11-10<br>
                 <strong>Method:</strong> Using <code>area_id</code> from <code>d_area</code> table with <code>area_name = 'Kulim'</code> (exact match) for accurate Kulim area classification.<br>
                 <strong>Order Counting:</strong> Using <code>COUNT(DISTINCT order_id)</code> to ensure unique order counting.<br>
-                <strong>Note:</strong> November data is partial (through Nov 10, 2025) - represents ~33% of the month.<br>
-                <strong>Key Insight:</strong> October showed strong +13.79% MoM GMV growth, with 143 active merchants generating 17,968 distinct orders.
+                <strong>Metrics Display:</strong> Overview shows <strong>monthly averages</strong> (Sep - Nov 2025). November data is partial (through Nov 10, 2025) - represents ~33% of the month.<br>
+                <strong>Key Insight:</strong> Average monthly GMV shows strong performance with October achieving +13.79% MoM growth, with 143 active merchants generating 17,968 distinct orders.
             </div>
         </div>
 
