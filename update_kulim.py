@@ -107,10 +107,32 @@ def update_html_with_metrics(html_file, metrics_data):
     
     html_content = re.sub(pattern, replacement, html_content)
     
-    # Update the data source note with current date
+    # Update all date fields with current date
     current_date = datetime.now().strftime('%Y-%m-%d')
+    current_date_formatted = datetime.now().strftime('%B %d, %Y')
+    
+    # Update Query Date in data source section
     date_pattern = r'<strong>Query Date:</strong> \d{4}-\d{2}-\d{2}'
     html_content = re.sub(date_pattern, f'<strong>Query Date:</strong> {current_date}', html_content)
+    
+    # Update Report Date
+    report_date_pattern = r'<strong>Report Date:</strong> [A-Za-z]+ \d{1,2}, \d{4}'
+    html_content = re.sub(report_date_pattern, f'<strong>Report Date:</strong> {current_date_formatted}', html_content)
+    
+    # Update JavaScript comment date
+    js_comment_pattern = r'// Query executed: \d{4}-\d{2}-\d{2}'
+    html_content = re.sub(js_comment_pattern, f'// Query executed: {current_date}', html_content)
+    
+    # Update Report Period end date (if it exists)
+    report_period_pattern = r'<strong>Report Period:</strong> [^<]+ - ([A-Za-z]+ \d{1,2}, \d{4})'
+    match = re.search(report_period_pattern, html_content)
+    if match:
+        # Update the end date in Report Period
+        html_content = re.sub(
+            r'(<strong>Report Period:</strong> [^<]+ - )([A-Za-z]+ \d{1,2}, \d{4})',
+            f'\\1{current_date_formatted}',
+            html_content
+        )
     
     print(f"Writing updated HTML file: {html_file}")
     with open(html_file, 'w', encoding='utf-8') as f:
