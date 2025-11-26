@@ -230,12 +230,18 @@ def main():
     print("="*80)
     print()
     
-    # Check if data is provided as command line argument
+    # Check if data is provided as command line argument or file
     if len(sys.argv) > 1:
         try:
-            # Try to parse JSON data from command line
-            data_json = sys.argv[1]
-            metrics_data = json.loads(data_json)
+            # Check if argument is a file path
+            if sys.argv[1].endswith('.json') or os.path.exists(sys.argv[1]):
+                # Read from file
+                with open(sys.argv[1], 'r', encoding='utf-8') as f:
+                    metrics_data = json.load(f)
+            else:
+                # Try to parse JSON data from command line
+                data_json = sys.argv[1]
+                metrics_data = json.loads(data_json)
             
             print("Updating HTML with provided data...")
             js_data = update_html_with_metrics('kulim_penang_comprehensive_analysis.html', metrics_data)
@@ -262,4 +268,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 

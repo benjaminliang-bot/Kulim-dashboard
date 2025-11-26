@@ -397,28 +397,27 @@
         // Using COUNT(DISTINCT order_id) for accurate order counting
         const commercialMetrics = {
             september: {
-                gmv: 499340.10, // RM - Actual GMV (area_name = 'Kulim' exact match)
-                orders: 15915, // Actual completed orders (distinct)
-                merchants: 139, // Active merchants
-                passengers: 8207, // Unique passengers
-                aov: 31.38 // RM - Average order value
+                        gmv: 501930.4,
+                        orders: 16000,
+                        merchants: 139,
+                        passengers: 8235,
+                        aov: 31.37
             },
             october: {
-                gmv: 568189.00, // RM - Actual GMV (+13.79% MoM)
-                orders: 17968, // Actual completed orders (distinct) - Dashboard shows 18,342
-                merchants: 143, // Active merchants
-                passengers: 8983, // Unique passengers
-                aov: 31.62 // RM - Average order value
+                        gmv: 570601.7,
+                        orders: 18046,
+                        merchants: 143,
+                        passengers: 9000,
+                        aov: 31.62
             },
             november: {
-                // Partial month (through Nov 10, 2025) - actual data
-                gmv: 168853.68, // RM - Actual GMV (partial month)
-                orders: 5423, // Actual completed orders (partial month, distinct)
-                merchants: 132, // Active merchants
-                passengers: 3873, // Unique passengers (partial month)
-                aov: 31.14 // RM - Average order value
+                        gmv: 468431.58,
+                        orders: 14671,
+                        merchants: 143,
+                        passengers: 7813,
+                        aov: 31.93
             }
-        };
+};
 
         function formatCurrency(value) {
             if (value === null || value === undefined) return 'RM [TBD]';
@@ -699,7 +698,7 @@
             
             <div class="insight" style="background: rgba(76, 175, 80, 0.2); border-left: 4px solid #4CAF50; margin-top: 20px;">
                 <strong>✓ Data Source:</strong> Commercial metrics loaded from <strong>actual query results</strong> via Hubble/Presto MCP tools.<br>
-                <strong>Table:</strong> <code>ocd_adw.f_food_metrics</code> | <strong>Query Date:</strong> 2025-11-10<br>
+                <strong>Table:</strong> <code>ocd_adw.f_food_metrics</code> | <strong>Query Date:</strong> 2025-11-26<br>
                 <strong>Method:</strong> Using <code>area_id</code> from <code>d_area</code> table with <code>area_name = 'Kulim'</code> (exact match) for accurate Kulim area classification.<br>
                 <strong>Order Counting:</strong> Using <code>COUNT(DISTINCT order_id)</code> to ensure unique order counting.<br>
                 <strong>Metrics Display:</strong> Overview shows <strong>monthly averages</strong> (Sep - Nov 2025). November data is partial (through Nov 10, 2025) - represents ~33% of the month.<br>
