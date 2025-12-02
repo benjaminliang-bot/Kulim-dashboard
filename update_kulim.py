@@ -7,6 +7,7 @@ Automates the process of:
 """
 
 import json
+import os
 import re
 import sys
 import io
