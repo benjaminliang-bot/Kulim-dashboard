@@ -1,0 +1,11 @@
+Factor,Impact_Level,Oct_vs_Sep_Change,Percentage_Change,Contribution_to_Growth,Causal_Relationship
+Eater Base Expansion,HIGH,+70862 eaters,+4.1%,PRIMARY DRIVER - 25% from Johor Bahru alone,Direct → Order Volume Growth
+Order Volume Growth,HIGH,+544421 orders,+7.4%,Direct result - driven by eater expansion,Result → GMV Growth
+Promotion Investment,HIGH,+MYR 3211872.90,+11.2%,Growth driver - attracts orders,Indirect → Orders → GMV
+Merchant Base Growth,MEDIUM,+971 merchants,+2.0%,Supporting factor - increases supply capacity,Supply → Fulfillment → Orders
+Completion Rate Improvement,MEDIUM,+0.4pp,+0.44%,Quality driver - +30440 more completed orders,Fulfillment → GMV
+Orders per Merchant,MEDIUM,+8 orders/merchant,+5.8%,Efficiency metric - better utilization,Utilization → Orders
+Average Promo Value,MEDIUM,+MYR 0.32,+3.7%,Attractiveness factor - higher value per order,Value → Orders
+Allocation Rate Improvement,LOW,+0.5pp,+0.55%,Operational efficiency - better allocation,Operations → Completion
+Basket Size Change,LOW,-MYR 0.40,-1.18%,Compensating factor - offset by volume growth,Negative - offset by volume
+

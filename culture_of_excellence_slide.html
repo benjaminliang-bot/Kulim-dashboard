@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Culture of Excellence: Performance by Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: linear-gradient(135deg, #eefbfb 0%, #d9fcde 100%);
+            color: #184440;
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #00b14f 0%, #17b5a6 100%);
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #005339;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #1e948a;
+            margin-bottom: 8px;
+        }
+
+        .section {
+            margin-bottom: 36px;
+            padding: 24px;
+            background: #f8fffe;
+            border-left: 4px solid #00b14f;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3334;
+            color: #00804a;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #00b14f;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .section-content {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #184440;
+            margin-bottom: 12px;
+        }
+
+        .section-content strong {
+            color: #00804a;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: rgba(0, 177, 79, 0.15);
+            border-left: 4px solid #00b14f;
+            padding: 20px;
+            margin: 16px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box .highlight-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4445;
+            color: #00804a;
+            margin-bottom: 12px;
+        }
+
+        .triad-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .triad-item {
+            background: #ffffff;
+            border: 2px solid #b1eaba;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .triad-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4445;
+            color: #00b14f;
+            margin-bottom: 8px;
+        }
+
+        .triad-item-content {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.4286;
+            color: #184440;
+        }
+
+        .four-h-values {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .h-value {
+            background: linear-gradient(135deg, #00b14f 0%, #17b5a6 100%);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .commitment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .commitment-card {
+            background: #ffffff;
+            border: 2px solid #a9eae6;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .commitment-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #00804a;
+            margin-bottom: 16px;
+        }
+
+        .commitment-list {
+            list-style: none;
+        }
+
+        .commitment-list li {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #184440;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .commitment-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b14f;
+            font-weight: 600;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid #b1eaba;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4445;
+            color: #00804a;
+        }
+
+        .zero-tolerance {
+            background: #fff4eb;
+            border-left: 4px solid #ff6b35;
+            padding: 20px;
+            margin: 16px 0;
+            border-radius: 8px;
+        }
+
+        .zero-tolerance-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4445;
+            color: #d84315;
+            margin-bottom: 12px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .slide-container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h1 class="title">Our Culture of Excellence: Performance by Design</h1>
+            <p class="subtitle">Day 1 Opening Framework</p>
+        </div>
+
+        <!-- Section 1: The "Why" -->
+        <div class="section">
+            <h2 class="section-title">1. The "Why": Acknowledge the Present, Frame the Future</h2>
+            <p class="section-content">
+                <strong>Acknowledge Performance:</strong> First, I want to acknowledge the work you do. This team performs, and I've seen your commitment since I joined in April.
+            </p>
+            <p class="section-content">
+                <strong>State the Opportunity:</strong> But I didn't bring us here just because we're doing okay. I brought us here because I believe this team has the potential to be the highest-performing, most united commercial team in the region. We have a massive opportunity in Penang, and to capture our full potential, we must be a united team.
+            </p>
+            <p class="section-content">
+                <strong>Set the Purpose:</strong> These next three days are an investment. This is not a 'eat and play' trip. This is a strategic workshop designed to reset and rebuild, to equip us with new tools, and most importantly, new ways of working together.
+            </p>
+        </div>
+
+        <!-- Section 2: A Candid Start -->
+        <div class="section">
+            <h2 class="section-title">2. A Candid Start (The "How" We Begin)</h2>
+            <p class="section-content">
+                Before we get into the activities, I need to have a difficult and candid conversation with you. Honestly, this part isn't easy. I've been thinking a lot about how to say this, because I'm genuinely afraid I might say something wrong or accidentally trigger someone.
+            </p>
+            <p class="section-content">
+                But I know that having this conversation is far more important than my own fear. The future of our team, and the trust we need to build, is more important than my own comfort.
+            </p>
+            <p class="section-content">
+                <strong>My ask is that you please work with me as we struggle through this together. Listen with an open heart. That is the only way we will leave here as the single, united team I know we can be.</strong>
+            </p>
+        </div>
+
+        <!-- Section 3: The "What" -->
+        <div class="section">
+            <h2 class="section-title">3. The "What": Our Culture, Our Joy, & Our New Standard</h2>
+            
+            <div class="highlight-box">
+                <div class="highlight-title">Culture Eats Strategy for Breakfast</div>
+                <p class="section-content">
+                    We can have the best commercial strategy in the world, but if our culture—how we treat each other, how we handle conflict, how we hold ourselves accountable—is broken, we will fail.
+                </p>
+                <div class="four-h-values">
+                    <span class="h-value">Heart</span>
+                    <span class="h-value">Hunger</span>
+                    <span class="h-value">Honour</span>
+                    <span class="h-value">Humility</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">The Source of Joy in Work</div>
+                <p class="section-content">
+                    True joy from our careers doesn't come from money, or power, or prestige. Those things are side effects.
+                </p>
+                <p class="section-content">
+                    <strong>Joy comes from earning your success</strong>, which means:
+                </p>
+                <ul class="commitment-list" style="margin-top: 12px;">
+                    <li><strong>Creating Value:</strong> Believing that your work is needed and that you are serving other people.</li>
+                    <li><strong>Lifting Others:</strong> Doing something that is good for other people.</li>
+                </ul>
+                <p class="section-content" style="margin-top: 12px;">
+                    The purpose of your job, through your work, is to <strong>love, dignify, and lift other people up</strong>.
+                </p>
+            </div>
+
+            <div class="zero-tolerance">
+                <div class="zero-tolerance-title">Zero Tolerance Mandate</div>
+                <p class="section-content">
+                    <strong>Zero Tolerance for Toxic Behavior:</strong> Retaliation and backbiting are unacceptable.
+                </p>
+                <p class="section-content">
+                    <strong>No Triangulation:</strong> Complaining about someone to a third party instead of speaking to them or to me—ends today.
+                </p>
+                <p class="section-content">
+                    <strong>Open & Direct Communication:</strong> All feedback and complaints must come to me directly. This is the only way to solve issues and build trust.
+                </p>
+                <p class="section-content">
+                    <strong>The standard is integrity:</strong> doing the right thing, even when no one is watching.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 4: Our New Way of Working -->
+        <div class="section">
+            <h2 class="section-title">4. Our New Way of Working: From Task-Givers to Thinking Partners</h2>
+            <p class="section-content">
+                A huge part of "dignifying others" is respecting their intelligence and creativity. We will no longer be a team of "task-givers" and "checklist-executors." We will be a team of <strong>Thinking Partners</strong>.
+            </p>
+            <p class="section-content" style="margin-bottom: 20px;">
+                <strong>This means we don't just delegate tasks; we delegate problems.</strong> This is our "Empowerment Triad":
+            </p>
+            
+            <div class="triad-container">
+                <div class="triad-item">
+                    <div class="triad-item-title">Define the Nature</div>
+                    <div class="triad-item-content">The Why & Stakes - You will always know why something is vital, what success buys us, and what failure costs us.</div>
+                </div>
+                <div class="triad-item">
+                    <div class="triad-item-title">Pose the Question</div>
+                    <div class="triad-item-content">The Challenge - I will give you my best thinking, and then ask you to "find the flaws," "go two levels deeper," or "beat my standard."</div>
+                </div>
+                <div class="triad-item">
+                    <div class="triad-item-title">Empower & Anchor</div>
+                    <div class="triad-item-content">The Trust & Standard - You will have full autonomy on the how. My focus is on the outcome. "Beat my standard."</div>
+                </div>
+            </div>
+            
+            <p class="section-content" style="margin-top: 20px; font-style: italic; color: #00804a;">
+                The weak manage output. The strong design cognition. We will be a team that designs cognition.
+            </p>
+        </div>
+
+        <!-- Section 5: The "How" -->
+        <div class="section">
+            <h2 class="section-title">5. The "How": Our Work for the Next 3 Days</h2>
+            <p class="section-content">
+                This is a <strong>"build-to-ship" workshop</strong>. We will be in mixed teams—permanent and FTT—tackling checkpoint races, collaborative sprints, and field simulations.
+            </p>
+            <p class="section-content">
+                <strong>Practice New Habits:</strong> These activities will create "purposeful, playful pressure." We will practice:
+            </p>
+            <ul class="commitment-list">
+                <li>Making "trust moves"—like asking, clarifying, and committing.</li>
+                <li>Giving brave, honest feedback.</li>
+                <li>Receiving a "problem" instead of a "task."</li>
+                <li>Managing clear handoffs and supporting our teammates.</li>
+            </ul>
+            <p class="section-content" style="margin-top: 16px;">
+                <strong>The Debrief is Key:</strong> After every activity, we will debrief. We will talk about how our behaviors linked to the 4H values and our new "no-triangulation" norm.
+            </p>
+        </div>
+
+        <!-- Section 6: The "So What?" -->
+        <div class="section">
+            <h2 class="section-title">6. The "So What?": Our Commitment (The Deliverable)</h2>
+            <p class="section-content">
+                <strong>A Lasting Commitment:</strong> We are not leaving here with just good memories. We are leaving with a plan to sustain this.
+            </p>
+            <p class="section-content">
+                <strong>The Team Norm Charter:</strong> Our most important objective is to co-create and sign our own Team Norm Charter. This charter will be drafted by us, for us. It will define our shared rules for feedback, escalation, and anti-gossip behavior.
+            </p>
+            <p class="section-content">
+                <strong>Make it Real:</strong> This charter will be visibly displayed in our workspace. It is not just a document; it is our public commitment to each other. We will build simple, inspectable routines to make sure we stick to it.
+            </p>
+        </div>
+
+        <!-- Section 7: My Ask & My Commitment -->
+        <div class="section">
+            <h2 class="section-title">7. My Ask & My Commitment (Set Ground Rules)</h2>
+            
+            <div class="commitment-grid">
+                <div class="commitment-card">
+                    <div class="commitment-card-title">My Ask of You</div>
+                    <ul class="commitment-list">
+                        <li><strong>Be 100% Present:</strong> Engage fully.</li>
+                        <li><strong>Speak with Honour:</strong> Be honest, but respectful. Challenge ideas, not people.</li>
+                        <li><strong>Listen with Humility:</strong> Be open to learning something new, even from those you may have had friction with.</li>
+                        <li><strong>What's Said Here, Stays Here:</strong> This is a safe space for candor.</li>
+                    </ul>
+                </div>
+                <div class="commitment-card">
+                    <div class="commitment-card-title">My Commitment to You</div>
+                    <p class="section-content">
+                        In return, I commit to listening, to being open, and to holding everyone—including myself—accountable to these new standards.
+                    </p>
+                    <p class="section-content" style="margin-top: 16px; font-weight: 600; color: #00804a;">
+                        This is our reset. This is day one of the new Penang Commercial team.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Let's get to work.
+        </div>
+    </div>
+</body>
+</html>
+

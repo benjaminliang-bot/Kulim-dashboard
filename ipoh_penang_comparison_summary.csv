@@ -1,0 +1,25 @@
+City,Metric,September 2025,October 2025,Change,Change_Pct,Growth_Driver_Rank
+Penang,Total Orders,1219460,1285577,66117,5.4%,PRIMARY
+Penang,Completed Orders,1128336,1181415,53079,4.7%,RESULT
+Penang,Total GMV (MYR),45276009.59,47130877.33,1854868,4.1%,RESULT
+Penang,Avg Basket Size (MYR),35.78,35.48,-0.31,-0.9%,COMPENSATING
+Penang,Unique Merchants,6411,6490,79,1.2%,SUPPORTING
+Penang,Unique Eaters,288514,296554,8040,2.8%,PRIMARY DRIVER
+Penang,Promo Penetration %,56.1,56.4,0.3,0.5%,HIGH IMPACT
+Penang,Promo Expense (MYR),6767273.07,7097121.89,329849,4.9%,HIGH IMPACT
+Penang,Avg Promo per Order (MYR),10.78,10.74,-0.04,-0.4%,STABLE
+Penang,Orders per Merchant,190,198,8,4.2%,EFFICIENCY
+Penang,Completion Rate %,92.5,91.9,-0.6,-0.6%,MONITOR
+Ipoh,Total Orders,705665,729902,24237,3.4%,PRIMARY
+Ipoh,Completed Orders,649154,668994,19840,3.1%,RESULT
+Ipoh,Total GMV (MYR),23105450.18,23565726.20,460276,2.0%,RESULT
+Ipoh,Avg Basket Size (MYR),31.42,31.05,-0.36,-1.1%,COMPENSATING
+Ipoh,Unique Merchants,5017,5131,114,2.3%,PRIMARY DRIVER
+Ipoh,Unique Eaters,175606,177844,2238,1.3%,SECONDARY
+Ipoh,Promo Penetration %,47.3,46.2,-1.1,-2.3%,SUPPORTING
+Ipoh,Promo Expense (MYR),2718201.46,2843747.63,125547,4.6%,SUPPORTING
+Ipoh,Avg Promo per Order (MYR),8.96,9.34,0.38,4.2%,POSITIVE
+Ipoh,Orders per Merchant,141,142,1,0.7%,STABLE
+Ipoh,Completion Rate %,92.0,91.7,-0.3,-0.3%,STABLE
+
+

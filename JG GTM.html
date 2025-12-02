@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Dashboard for Supermarket B2B GTM Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+        }
+        .metric-card {
+            background-color: #1e293b; /* slate-800 */
+            border: 1px solid #334155; /* slate-700 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .callout {
+            background-color: #334155; /* slate-700 */
+            border-left: 4px solid #ef4444; /* red-500 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+         .callout-warning {
+            background-color: #451a23; /* darker red */
+            border-left: 4px solid #f87171; /* red-400 */
+        }
+         .callout-info {
+             background-color: #1e3a8a; /* blue-900 */
+             border-left-color: #60a5fa; /* blue-400 */
+         }
+        .text-jg-red {
+            color: #ef4444; /* red-500 */
+        }
+        /* Calculator Styles */
+        .calc-input {
+            background-color: #334155;
+            border: 1px solid #475569;
+            color: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+        }
+        .calc-button {
+            background-color: #ef4444;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .calc-button:hover {
+            background-color: #dc2626;
+        }
+        #rfm-result-segment {
+            transition: all 0.3s ease;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        #rfm-result-segment.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-white">KPI & Success Metrics</h1>
+            <p class="text-lg text-slate-400 mt-2">Initial GTM Phase: Supermarket B2B Business</p>
+        </header>
+
+        <main class="space-y-8">
+            
+            <!-- 1. Strategic Goals -->
+            <section id="strategic-goals" class="metric-card">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-jg-red"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    1. Strategic Goals: Anchoring Core Business Value
+                </h2>
+                <div class="space-y-6">
+                    <!-- Market Penetration -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg">
+                        <h3 class="font-semibold text-jg-red text-lg">Market Penetration</h3>
+                        <p class="mt-1"><strong class="text-white">Core Metric:</strong> Target Customer Coverage Rate</p>
+                        <p class="text-sm text-slate-400">(Acquired target customers / Total target customers)</p>
+                        <p class="mt-2 text-white bg-red-500/20 px-3 py-1 rounded-full inline-block text-sm"><strong>Target:</strong> ≥30% small restaurants, ≥15% large HORECA clients</p>
+                    </div>
+                    <!-- Nationwide Split -->
+                    <div class="callout border-l-amber-400 bg-amber-900/10">
+                        <h4 class="font-semibold text-amber-400 mb-2">Nationwide Split & The 20:80 Rule</h4>
+                        <ul class="list-disc list-inside space-y-2 text-slate-400">
+                            <li><strong>KV (Klang Valley) - The 20%:</strong> Focus on the top 20% of clients (mid-to-large HORECA & corporate) expected to drive 80% of the revenue. Strategy is depth and high LTV.</li>
+                            <li><strong>OC (Other Cities) - The 80%:</strong> Build a broad base with the other 80% of clients (GF/non-GF Mexican restaurants, small-to-mid HORECA) for market penetration and validation.</li>
+                        </ul>
+                    </div>
+                    <!-- Business Validation -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg">
+                        <h3 class="font-semibold text-jg-red text-lg">Business Validation</h3>
+                        <p class="mt-1"><strong class="text-white">Core Metric:</strong> Unit Economics Health (LTV / CAC)</p>
+                        <p class="text-sm text-slate-400">(Customer Lifetime Value / Customer Acquisition Cost)</p>
+                        <p class="mt-2 text-white bg-red-500/20 px-3 py-1 rounded-full inline-block text-sm"><strong>Target:</strong> LTV:CAC ≥ 3:1</p>
+                        
+                        <!-- LTV Calculation Illustration -->
+                        <div class="mt-4 p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+                            <h4 class="font-semibold text-jg-red mb-2">LTV Calculation Explained</h4>
+                            <p class="text-sm text-slate-400 mb-3">LTV = (Average Purchase Value × Purchase Frequency) × Customer Lifespan</p>
+                            <div class="border-t border-slate-700 pt-3">
+                                <p class="font-semibold text-white">Example: A Small Restaurant</p>
+                                <ul class="list-disc list-inside text-slate-400 mt-2 space-y-1 text-sm">
+                                    <li><strong>Avg. Purchase Value:</strong> RM400 per order</li>
+                                    <li><strong>Purchase Frequency:</strong> 2 orders per month</li>
+                                    <li><strong>Customer Lifespan:</strong> 12 months (estimated)</li>
+                                </ul>
+                                <p class="mt-3 font-mono text-white bg-red-900/50 p-2 rounded-md text-center">
+                                    (RM400 × 2 orders/month) × 12 months = <span class="font-bold text-lg">RM9,600 LTV</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Supply Chain Control -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg">
+                        <h3 class="font-semibold text-jg-red text-lg">Supply Chain Control</h3>
+                        <p class="mt-1"><strong class="text-white">Core Metric:</strong> On-Time Fulfillment Rate</p>
+                        <p class="text-sm text-slate-400">(On-time orders / Total orders)</p>
+                        <p class="mt-2 text-white bg-red-500/20 px-3 py-1 rounded-full inline-block text-sm"><strong>Target:</strong> ≥90% same-day delivery rate in core areas</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Operational KPIs -->
+            <section id="operational-kpis" class="metric-card">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-jg-red"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20V16"></path></svg>
+                    2. Operational KPIs: Breaking Down Key Actions
+                </h2>
+                <div class="space-y-8">
+                    <!-- Customer Acquisition -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-jg-red mb-3">2.1 Customer Acquisition: Efficiency & Quality</h3>
+                        <div class="metric-grid">
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>CAC:</strong> ≤RM800/small restaurant, ≤RM5k/large client</div>
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Lead Conversion Rate:</strong> ≥20%</div>
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Channel Mix:</strong> Online channels ≥60%</div>
+                        </div>
+                        <div class="callout">
+                            <p><strong class="text-white">Key Logic:</strong> If CAC is too high, optimize field sales strategy. If conversion is low, refine the sales pitch to address customer pain points more directly.</p>
+                        </div>
+                    </div>
+                     <!-- Customer Retention -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-jg-red mb-3">2.2 Customer Retention & Activity: The Lifeline</h3>
+                         <div class="metric-grid">
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>30-Day Repurchase Rate:</strong> ≥40% small, ≥80% large clients</div>
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Order Frequency:</strong> ≥2/mo small, ≥4/mo large clients</div>
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Major Customer Churn:</strong> ≤5% per month</div>
+                        </div>
+                        <div class="callout">
+                             <p><strong class="text-white">Case Study:</strong> Meicai boosted 30-day repurchase from 25% to 45% with first-order discounts and dedicated managers, solving "stockout anxiety."</p>
+                        </div>
+                    </div>
+                    <!-- Operational Efficiency -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-jg-red mb-3">2.3 Operational Efficiency: Cost Control is Survival</h3>
+                        <div class="metric-grid">
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Fulfillment Cost Rate:</strong> ≤15% of GMV</div>
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Inventory Turnover:</strong> ≤14 days</div>
+                            <div class="p-4 bg-slate-700/60 rounded-lg"><strong>Order Processing Time:</strong> ≤2 hours in core areas</div>
+                        </div>
+                        <div class="callout callout-warning">
+                            <p><strong class="text-white">Risk Warning:</strong> If fulfillment costs exceed 20%, urgently optimize warehouse layout or explore shared delivery models to reduce per-kilometer costs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 3. RFM Customer Segmentation -->
+            <section id="rfm-segmentation" class="metric-card">
+                 <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-jg-red"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    3. RFM Customer Segmentation: A Practical Approach
+                </h2>
+                <p class="mb-6 text-slate-400">Use RFM (Recency, Frequency, Monetary) analysis to segment customers and tailor strategies. Customers who purchased recently (R), frequently (F), and spent more (M) are your most valuable assets.</p>
+                
+                <div class="mb-6 p-4 bg-slate-900/50 rounded-lg">
+                    <h4 class="font-semibold text-jg-red text-lg mb-3">How Scoring Works</h4>
+                    <p class="text-slate-400 mb-4">Each customer is scored from 1 to 5 for each of the three categories. A score of 5 is always the best, resulting in a three-digit RFM score (e.g., 555 for your best customers).</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="p-3 bg-slate-700/60 rounded-md">
+                            <p class="font-bold text-white">Recency (R)</p>
+                            <p class="text-sm text-slate-400">5 = Purchased very recently</p>
+                            <p class="text-sm text-slate-400">1 = Purchased long ago</p>
+                        </div>
+                        <div class="p-3 bg-slate-700/60 rounded-md">
+                            <p class="font-bold text-white">Frequency (F)</p>
+                            <p class="text-sm text-slate-400">5 = Purchases very often</p>
+                            <p class="text-sm text-slate-400">1 = Purchases rarely</p>
+                        </div>
+                        <div class="p-3 bg-slate-700/60 rounded-md">
+                            <p class="font-bold text-white">Monetary (M)</p>
+                            <p class="text-sm text-slate-400">5 = Spends a great deal</p>
+                            <p class="text-sm text-slate-400">1 = Spends very little</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left rounded-lg overflow-hidden">
+                        <thead class="bg-slate-700/50 text-slate-300">
+                            <tr>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Segment</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Benchmark (Avg. Weekly GMV)</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Characteristics (Data-Driven KV Profile)</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Growth Strategy</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700">
+                            <tr class="hover:bg-slate-700/50">
+                                <td class="p-3 font-semibold text-green-400">Champions</td>
+                                <td class="p-3 font-mono">> RM 3,000</td>
+                                <td class="p-3 text-slate-400">Your top 5-10 accounts. Consistent high-volume purchasers like large HORECA or active corporate clients. High frequency.</td>
+                                <td class="p-3 text-slate-400"><strong>KV:</strong> Defend & grow order value with dedicated account managers. <strong>OC:</strong> Replicate by targeting lookalikes.</td>
+                            </tr>
+                             <tr class="hover:bg-slate-700/50">
+                                <td class="p-3 font-semibold text-sky-400">Loyal Customers</td>
+                                <td class="p-3 font-mono">RM 500 - RM 3,000</td>
+                                <td class="p-3 text-slate-400">The core of your business. Consistent, but smaller orders. Mix of managed HORECA and regular corporate clients.</td>
+                                <td class="p-3 text-slate-400"><strong>KV:</strong> Increase order value via cross-selling. <strong>OC:</strong> Build scalable acquisition model.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-700/50">
+                                <td class="p-3 font-semibold text-cyan-400">Potential Loyalists</td>
+                                <td class="p-3 font-mono">RM 100 - RM 500</td>
+                                <td class="p-3 text-slate-400">New or inconsistent customers showing signs of life. Typically smaller, non-managed HORECA or ad-hoc corporate buyers.</td>
+                                <td class="p-3 text-slate-400"><strong>KV & OC:</strong> Nurture with automated campaigns to increase frequency & basket size.</td>
+                            </tr>
+                             <tr class="hover:bg-slate-700/50">
+                                <td class="p-3 font-semibold text-amber-400">At-Risk Customers</td>
+                                <td class="p-3 font-mono">< RM 100</td>
+                                <td class="p-3 text-slate-400">Previously ordered but have low recency. Sporadic, low-value purchases.</td>
+                                <td class="p-3 text-slate-400"><strong>KV & OC:</strong> Automated re-engagement. Identify reasons for churn.</td>
+                            </tr>
+                             <tr class="hover:bg-slate-700/50">
+                                <td class="p-3 font-semibold text-rose-400">Hibernating / Lost</td>
+                                <td class="p-3 font-mono">RM 0</td>
+                                <td class="p-3 text-slate-400">Inactive for >2 months. Coldest leads.</td>
+                                <td class="p-3 text-slate-400"><strong>KV & OC:</strong> One final attempt, then move to inactive list.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- RFM SCORING MODEL -->
+            <section id="rfm-calculator" class="metric-card">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-jg-red"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"></path><path d="m10 14-2-2 2-2"></path><path d="m14 10 2 2-2 2"></path></svg>
+                    RFM Scoring Model (Demonstration)
+                </h2>
+                <p class="text-slate-400 mb-6">Enter a client's data to see their calculated RFM score and segment. This helps demonstrate the logic in the table above.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="recency-input" class="block text-sm font-medium text-slate-300 mb-2">Days Since Last Order (Recency)</label>
+                        <input type="number" id="recency-input" class="calc-input" placeholder="e.g., 10">
+                    </div>
+                    <div>
+                        <label for="frequency-input" class="block text-sm font-medium text-slate-300 mb-2">Total Orders (Last 3 Months)</label>
+                        <input type="number" id="frequency-input" class="calc-input" placeholder="e.g., 6">
+                    </div>
+                    <div>
+                        <label for="monetary-input" class="block text-sm font-medium text-slate-300 mb-2">Total Spend (Last 3 Months)</label>
+                        <input type="number" id="monetary-input" class="calc-input" placeholder="e.g., 7500">
+                    </div>
+                </div>
+
+                <div class="text-center mt-6">
+                    <button id="calculate-rfm-btn" class="calc-button">Calculate Segment</button>
+                </div>
+
+                <div id="rfm-result" class="mt-6 text-center" style="display: none;">
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div class="p-4 bg-slate-700/60 rounded-lg">
+                            <p class="text-sm text-slate-400">Recency Score (R)</p>
+                            <p id="r-score" class="text-3xl font-bold text-white">-</p>
+                        </div>
+                        <div class="p-4 bg-slate-700/60 rounded-lg">
+                            <p class="text-sm text-slate-400">Frequency Score (F)</p>
+                            <p id="f-score" class="text-3xl font-bold text-white">-</p>
+                        </div>
+                        <div class="p-4 bg-slate-700/60 rounded-lg">
+                            <p class="text-sm text-slate-400">Monetary Score (M)</p>
+                            <p id="m-score" class="text-3xl font-bold text-white">-</p>
+                        </div>
+                    </div>
+                    <div id="rfm-result-segment" class="p-6 rounded-lg">
+                        <p class="text-lg text-slate-400">This client is a:</p>
+                        <p id="segment-name" class="text-4xl font-bold"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Health Metrics -->
+            <section id="health-metrics" class="metric-card">
+                 <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-rose-400"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                    4. Health Metrics: Watching for Hidden Risks
+                </h2>
+                <div class="callout callout-info mb-6">
+                    <p class="text-slate-300"><strong class="text-white">Note:</strong> While crucial for long-term sustainability, these metrics might be a secondary focus during the initial GTM phase (0-3 months) compared to core validation metrics like CAC and Activation Rate.</p>
+                </div>
+                <div class="space-y-6">
+                    <!-- Customer Complaint Rate -->
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+                        <div class="flex justify-between items-start">
+                             <div>
+                                <p class="font-semibold text-white text-lg">Customer Complaint Rate</p>
+                                <p class="text-sm text-slate-400 mt-1"><strong>Definition:</strong> Percentage of orders resulting in a formal complaint.</p>
+                            </div>
+                            <p class="text-rose-400 font-bold bg-rose-900/40 px-3 py-1 rounded-full text-sm">Warning: > 3%</p>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-3"><strong>Relevance:</strong> An early warning system for operational issues (delivery, quality, accuracy). High rates predict churn and damage brand reputation. Essential for protecting the premium JFB/Grab image.</p>
+                    </div>
+                    <!-- Bad Debt Rate -->
+                     <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-semibold text-white text-lg">Bad Debt Rate</p>
+                                <p class="text-sm text-slate-400 mt-1"><strong>Definition:</strong> Percentage of credit sales written off as uncollectible.</p>
+                            </div>
+                            <p class="text-rose-400 font-bold bg-rose-900/40 px-3 py-1 rounded-full text-sm">Warning: > 2%</p>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-3"><strong>Relevance:</strong> Directly impacts profitability and cash flow, especially critical in B2B with credit terms. High rates signal issues in credit checks, invoicing, or collections, risking financial stability during growth.</p>
+                    </div>
+                     <!-- Category Penetration Rate -->
+                     <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+                        <div class="flex justify-between items-start">
+                             <div>
+                                <p class="font-semibold text-white text-lg">Category Penetration Rate</p>
+                                <p class="text-sm text-slate-400 mt-1"><strong>Definition:</strong> Average number of distinct product categories purchased per active customer.</p>
+                            </div>
+                            <p class="text-rose-400 font-bold bg-rose-900/40 px-3 py-1 rounded-full text-sm">Warning: < 3 avg.</p>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-3"><strong>Relevance:</strong> Measures customer "stickiness" and reliance on JFB. Low penetration means customers use us for niche items and are vulnerable to switching. High penetration indicates we are a primary supplier, increasing AOV and LTV.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Management Principles -->
+             <section id="principles" class="metric-card">
+                 <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-amber-400"><path d="M15.061 3.248a.5.5 0 0 1 .638.03l6 6a.5.5 0 0 1 .03.638l-3.5 7a.5.5 0 0 1-.444.284H6.215a.5.5 0 0 1-.444-.284l-3.5-7a.5.5 0 0 1 .03-.638l6-6a.5.5 0 0 1 .638-.03z"></path><path d="m12 10.5 4 4"></path><path d="m12 14.5-4-4"></path></svg>
+                    5. Principles for Managing Metrics
+                </h2>
+                <ul class="space-y-4">
+                    <li class="p-4 rounded-md bg-slate-900/50"><strong>Focus on "2+2" Core Metrics:</strong> Prioritize 2 strategic and 2 operational KPIs to avoid diluted focus.</li>
+                    <li class="p-4 rounded-md bg-slate-900/50"><strong>Dynamically Adjust Weighting:</strong>
+                        <ul class="list-disc list-inside text-slate-400 mt-2">
+                            <li><strong>Months 0-3 (Validation):</strong> Focus on acquisition (CAC) & fulfillment.</li>
+                            <li><strong>Months 3-6 (Optimization):</strong> Shift to retention (repurchase rate) & LTV.</li>
+                        </ul>
+                    </li>
+                    <li class="p-4 rounded-md bg-rose-900/40 border border-rose-500/50"><strong>Beware of "Vanity Metrics":</strong> Avoid superficial data like 'registered users.' Focus on substantive metrics like 'paying customer ratio' and 'ARPU' that reflect true business health.</li>
+                </ul>
+            </section>
+
+             <!-- 6. Strategic Cohesion -->
+            <section id="strategic-cohesion" class="metric-card border-2 border-jg-red">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-jg-red"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"></path><path d="m10 14-2-2 2-2"></path><path d="m14 10 2 2-2 2"></path></svg>
+                    6. Strategic Cohesion & Our Right to Win
+                </h2>
+                <p class="text-slate-400 mb-6">This section acts as a critical self-review to ensure the entire plan is cohesive, logical, and grounded in a sustainable competitive advantage.</p>
+
+                <!-- How It All Connects -->
+                <div class="mb-6 p-4 bg-slate-900/50 rounded-lg">
+                    <h3 class="font-semibold text-jg-red text-lg mb-3">How the Plan Connects: From Goals to Roadmap</h3>
+                    <p class="text-slate-400 mb-4">Each part of this plan builds on the last, creating a clear path from high-level strategy to on-the-ground execution. The final revenue target is not a guess; it's the calculated outcome of successfully executing each step.</p>
+                    <ol class="list-decimal list-inside space-y-2 text-slate-300">
+                        <li><strong>Strategic Goals</strong> (e.g., Market Penetration) define WHAT we need to achieve. They are the high-level objectives.</li>
+                        <li><strong>Operational KPIs</strong> (e.g., Customer Coverage Rate, CAC) are HOW we measure progress towards those goals. They make the strategy quantifiable.</li>
+                        <li><strong>RFM Segmentation</strong> is the TOOL we use to apply our strategy effectively. It tells us WHO to target and with what specific actions (e.g., focus on acquiring "Potential Loyalists" in OC).</li>
+                        <li><strong>The Roadmap</strong> is WHEN and WHERE we execute. It puts the goals, metrics, and segmentation into a timeline, allocating focus and resources (e.g., "Foundation" phase focuses on validating the OC acquisition playbook).</li>
+                    </ol>
+                     <p class="mt-4 callout text-sm"><strong>Direct Link Example:</strong> To hit the ~RM 16M target, we need a contribution from OC. This requires acquiring a base of accounts. The "Market Penetration" goal and its "Coverage Rate" KPI are the first, essential steps to building that customer base. Without penetration, there is no expansion revenue.</p>
+                </div>
+                
+                <!-- Clarifying KV vs OC -->
+                <div class="mb-6 p-4 bg-slate-900/50 rounded-lg">
+                    <h3 class="font-semibold text-jg-red text-lg mb-3">Critical Question: Is KV's "Deepen" Strategy Contradictory?</h3>
+                     <p class="text-slate-400 mb-4">The plan includes acquisition for KV, which is a "Deepen" market. This is not a contradiction; it's a clarification of strategic focus. The difference between KV and OC is the *primary goal* of acquisition.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="p-3 bg-slate-700/60 rounded-md">
+                            <p class="font-bold text-white text-center">KV (Deepen)</p>
+                            <p class="mt-2 text-slate-400"><strong class="text-white">Primary Goal:</strong> LTV Maximization. Grow revenue from the existing high-value base.</p>
+                            <p class="mt-2 text-slate-400"><strong class="text-white">Acquisition Type:</strong> Strategic & high-quality. We hunt for a few, specific "lookalike" accounts that mirror our current Champions. It is quality over quantity.</p>
+                        </div>
+                        <div class="p-3 bg-slate-700/60 rounded-md">
+                             <p class="font-bold text-white text-center">OC (Widen)</p>
+                             <p class="mt-2 text-slate-400"><strong class="text-white">Primary Goal:</strong> Market Penetration. Build a customer base from the ground up.</p>
+                             <p class="mt-2 text-slate-400"><strong class="text-white">Acquisition Type:</strong> Scalable & high-volume. We build and refine a playbook to acquire many "Loyal" and "Potential" customers efficiently. It is quantity and process over individual account quality.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right to Win -->
+                <div class="p-4 bg-slate-900/50 rounded-lg">
+                    <h3 class="font-semibold text-jg-red text-lg mb-3">Our Right to Win: Why We Will Succeed</h3>
+                    <p class="text-slate-400 mb-4">"Right to Win" defines our unique competitive advantages. Why will we succeed in a competitive B2B market?</p>
+                    <ul class="list-disc list-inside space-y-3 text-slate-300">
+                        <li>
+                            <strong class="text-white">Premium Brand & Trust:</strong> The Jaya Grocer brand is a powerful asset that resonates with high-value HORECA clients who prioritize quality and reliability over pure cost-cutting.
+                        </li>
+                        <li>
+                            <strong class="text-white">Superior Sourcing & Product Range:</strong> We offer a breadth and depth of SKUs, especially premium and imported goods, that traditional local wholesalers cannot match. This is key to increasing order value.
+                        </li>
+                         <li>
+                            <strong class="text-white">Technology & Logistical Synergy:</strong> Leveraging Grab's technology stack for last-mile delivery, data analytics, and operational efficiency provides a significant competitive advantage in fulfillment and customer intelligence.
+                        </li>
+                         <li>
+                            <strong class="text-white">Financial Backing:</strong> As part of a larger, well-capitalized entity, we have the resources to invest in a robust GTM strategy, absorb initial losses, and scale effectively where smaller players cannot.
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <!-- 7. ROADMAP (REVISED FOR RM 16M) -->
+            <section id="roadmap" class="metric-card">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-amber-400"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m14 12-2-2-2 2"></path><path d="M12 16V10"></path></svg>
+                     7. The Road to RM 16M: A Phased Growth Plan (EOY 2026)
+                </h2>
+                <p class="text-slate-400 mb-6">This roadmap outlines the key phases to scale the business to a ~RM 16M annual revenue run rate (~RM 308k/week) by the end of 2026, leveraging the 80/20 regional strategy and focusing on sustainable growth.</p>
+
+                <!-- Current Situation Context -->
+                <div class="mb-6 p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <h4 class="font-semibold text-amber-400 text-lg mb-3">Starting Point: Current KV Situation (Q4 2025)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="font-bold text-white">Current Performance</p>
+                            <ul class="list-disc list-inside text-sm text-slate-400 mt-2 space-y-1">
+                                <li><strong>Est. Weekly GMV:</strong> ~RM 40k - 50k</li>
+                                <li><strong>Account Base:</strong> ~50 active accounts with highly varied performance.</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <p class="font-bold text-white">Key Insight</p>
+                            <p class="text-sm text-slate-400 mt-2">The 80/20 rule is already evident. The top 5 accounts contribute >60% of total GMV, validating the "Deepen" strategy. Significant potential remains in mid-tier accounts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left rounded-lg overflow-hidden">
+                        <thead class="bg-slate-700/50 text-slate-300">
+                            <tr>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Phase</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Timeline</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">KV (80% Revenue) - "Deepen"</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">OC (20% Revenue) - "Widen"</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide">Key Metrics</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700">
+                            <tr class="hover:bg-slate-700/50 align-top">
+                                <td class="p-3 font-semibold text-cyan-400">1. Foundation & Validation</td>
+                                <td class="p-3 font-mono">Q4 2025 - Q1 2026</td> {/* Extended timeframe */}
+                                <td class="p-3 text-slate-400">Grow order value of existing "Champions" & "Loyal". Convert top "Loyal" into "Champions". Acquire a few strategic high-potential accounts.</td>
+                                <td class="p-3 text-slate-400">Launch in 1 key city. Focus heavily on validating the acquisition playbook and unit economics (LTV:CAC) for "Loyal" segment.</td>
+                                <td class="p-3 text-slate-400">KV Avg. GMV/week, OC LTV:CAC, OC Activation Rate, 30-Day Repurchase Rate (Both).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-700/50 align-top">
+                                <td class="p-3 font-semibold text-teal-400">2. Optimization & Expansion</td>
+                                <td class="p-3 font-mono">H1 2026</td>
+                                <td class="p-3 text-slate-400">Drive cross-category penetration. Optimize account management for efficiency. Refine incentives based on RFM.</td>
+                                <td class="p-3 text-slate-400">If unit economics are healthy, expand to 1-2 additional cities using the validated playbook. Focus on acquiring "Loyal" & "Potential".</td>
+                                <td class="p-3 text-slate-400">Category Penetration Rate, LTV:CAC (Both), OC CAC, Fulfillment Cost Rate.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-700/50 align-top">
+                                <td class="p-3 font-semibold text-amber-400">3. Sustainable Scaling</td>
+                                <td class="p-3 font-mono">H2 2026</td>
+                                <td class="p-3 text-slate-400">Maximize frequency and AOV with targeted promotions. Focus on profitability per account.</td>
+                                <td class="p-3 text-slate-400">Focus on achieving profitability in launched OC cities. Optimize logistics and potentially explore lower-cost acquisition channels.</td>
+                                <td class="p-3 text-slate-400">Total Weekly GMV (Target: ~RM 308k), Regional Profitability, Fulfillment Cost Rate.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                 <div class="mt-6 p-4 bg-slate-900/50 rounded-lg">
+                    <h4 class="font-semibold text-amber-400 text-lg mb-3">Illustrative Account Mix to Hit Target (EOY 2026)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="font-bold text-white">KV Target: ~RM 246k / week</p> <!-- 80% of 308k -->
+                            <ul class="list-disc list-inside text-sm text-slate-400 mt-2 space-y-1">
+                                <li><strong>15 Champion Accounts</strong> @ ~RM 6k/week</li> <!-- Lowered value -->
+                                <li><strong>50 Loyal Accounts</strong> @ ~RM 2.5k/week</li> <!-- Lowered value -->
+                                <li><strong>60+ Potential Accounts</strong> @ ~RM 500/week</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <p class="font-bold text-white">OC Target: ~RM 62k / week</p> <!-- 20% of 308k -->
+                            <ul class="list-disc list-inside text-sm text-slate-400 mt-2 space-y-1">
+                                <li><strong>2 Champion Accounts</strong> @ ~RM 5k/week</li> <!-- Lowered count & value -->
+                                <li><strong>30 Loyal Accounts</strong> @ ~RM 1.5k/week</li> <!-- Lowered value -->
+                                <li><strong>15+ Potential Accounts</strong> @ ~RM 450/week</li>
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+
+                <!-- REVISED: Critical Risks Section -->
+                <div class="mt-6 callout callout-warning">
+                     <h4 class="font-semibold text-rose-400 text-lg mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+                        Critical Risks & Roadblocks for Team Awareness (Revised for RM 16M Target)
+                    </h4>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2">
+                        <li>
+                            <strong>Unit Economics Risk:</strong> With a lower overall scale, achieving the target LTV:CAC ratio (≥3:1) becomes even more critical. Inefficient acquisition or low retention could prevent profitability.
+                        </li>
+                        <li>
+                            <strong>Competitive Pressure:</strong> A more moderate growth pace might allow existing local wholesalers or potential new entrants more time to react and compete aggressively on price or service, especially in OC markets.
+                        </li>
+                        <li>
+                            <strong>Resource Allocation:</strong> Even at this scale, balancing investment between deepening KV and widening into OC requires careful resource management. Spreading too thin could compromise execution in both areas.
+                        </li>
+                         <li>
+                            <strong>Operational Efficiency:</strong> Maintaining a low fulfillment cost rate (≤15%) is essential for profitability at this scale. Inefficiencies in logistics could quickly erode margins.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Deepen vs Widen Illustration -->
+                <div class="mt-6 p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <h4 class="font-semibold text-amber-400 text-lg mb-3">Deepen vs. Widen: A Strategic Illustration</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- KV Deepen Example -->
+                        <div class="p-4 bg-slate-800 rounded-lg">
+                            <p class="font-bold text-white mb-2 text-center">KV "Deepen" Example</p>
+                            <p class="text-sm text-slate-400 text-center mb-3">Focus: Increasing Order Value of one "Champion" Account</p>
+                            <div class="text-center bg-slate-900/50 p-3 rounded-md">
+                                <p class="text-lg font-semibold">Mas Awana Services Sdn. Bhd.</p>
+                                <p class="text-sm text-slate-400">Avg. Weekly Spend: <span class="font-mono text-white">~RM 15,000</span></p>
+                            </div>
+                            <div class="my-3 text-center text-amber-400">+</div>
+                            <div class="bg-slate-900/50 p-3 rounded-md">
+                                <p class="font-semibold text-white">Action: Cross-sell new categories</p>
+                                <ul class="list-disc list-inside text-sm text-slate-400 mt-2 space-y-1">
+                                    <li>Add Fresh Seafood: <span class="font-mono text-white">+ RM 5,000/week</span></li>
+                                    <li>Add Imported Cheeses: <span class="font-mono text-white">+ RM 2,500/week</span></li>
+                                </ul>
+                            </div>
+                            <div class="my-3 text-center text-green-400 font-bold text-2xl">=</div>
+                             <div class="text-center bg-green-900/30 p-3 rounded-md">
+                                <p class="text-lg font-semibold text-green-400">New Weekly Spend: <span class="font-mono">RM 22,500</span></p>
+                                <p class="text-sm text-green-500">(+50% GMV from one account)</p>
+                            </div>
+                        </div>
+
+                        <!-- OC Widen Example (Alignment Fixed) -->
+                        <div class="p-4 bg-slate-800 rounded-lg">
+                             <p class="font-bold text-white mb-2 text-center">OC "Widen" Example</p>
+                             <p class="text-sm text-slate-400 text-center mb-3">Focus: Acquiring multiple new "Loyal" Accounts</p>
+                             <div class="bg-slate-900/50 p-3 rounded-md">
+                                <p class="font-semibold text-white">Action: Execute acquisition playbook</p>
+                                <ul class="list-disc list-inside text-sm text-slate-400 mt-2 space-y-1">
+                                     <li>Acquire Restaurant A: <span class="font-mono text-white">+ RM 3,000/week</span></li>
+                                     <li>Acquire Cafe B: <span class="font-mono text-white">+ RM 2,000/week</span></li>
+                                     <li>Acquire Corporate C: <span class="font-mono text-white">+ RM 2,500/week</span></li>
+                                </ul>
+                             </div>
+                             <div class="my-3 text-center text-green-400 font-bold text-2xl">=</div>
+                             <div class="text-center bg-green-900/30 p-3 rounded-md">
+                                <p class="text-lg font-semibold text-green-400">Total New Weekly Spend: <span class="font-mono">RM 7,500</span></p>
+                                <p class="text-sm text-green-500">(GMV growth from 3 new accounts)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 8. Long-Term Vision -->
+            <section id="long-term-vision" class="metric-card">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-green-400"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a2.18 2.18 0 0 0-2.91-.09c-.79.78-.88 2.07-.09 2.91l3 3"></path><path d="M21.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m15 12 3 3a2.18 2.18 0 0 0 2.91-.09c.79-.78.88-2.07.09-2.91l-3-3"></path><path d="M7.5 12 9 10.5M16.5 12 15 10.5M12 7.5l1.5 1.5"></path></svg>
+                    8. Long-Term Vision: The "3G Era" Ecosystem
+                </h2>
+                <p class="text-slate-400 mb-6">These are long-term, potential strategies (not for immediate action) to strengthen the JFB business proposition and fully integrate into the Grab ecosystem, creating a powerful competitive moat.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- G #1: Gxbank -->
+                    <div class="p-6 bg-slate-900/50 rounded-lg text-center border border-slate-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 text-green-400"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M7 7h3v3H7z"></path><path d="M14 7h3v3h-3z"></path><path d="M7 14h3v3H7z"></path><path d="M14 14h3v3h-3z"></path></svg>
+                        <h3 class="text-xl font-bold text-white mb-2">G #1: Gxbank</h3>
+                        <p class="text-slate-400">Provide additional benefits from GX Bank, such as streamlined SME loans, preferred rates, or flexible capital for our HORECA clients.</p>
+                    </div>
+
+                    <!-- G #2: GRP (Grab Reward Points) -->
+                    <div class="p-6 bg-slate-900/50 rounded-lg text-center border border-slate-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 text-green-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <h3 class="text-xl font-bold text-white mb-2">G #2: GRP (Grab Reward Points)</h3>
+                        <p class="text-slate-400">Allow clients to earn GRP on all JFB purchases, which they can then redeem for other benefits within the Grab ecosystem (rides, food, etc.).</g>
+                    </div>
+
+                    <!-- G #3: GFB (Grab for Business) -->
+                    <div class="p-6 bg-slate-900/50 rounded-lg text-center border border-slate-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 text-green-400"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <h3 class="text-xl font-bold text-white mb-2">G #3: GFB (Grab for Business)</h3>
+                        <p class="text-slate-400">Actively cross-sell JFB supply solutions to the existing GFB client base and, conversely, offer GFB services (e.g., corporate transport) to JFB clients.</p>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- SCRIPT for RFM Calculator -->
+    <script>
+        document.getElementById('calculate-rfm-btn').addEventListener('click', () => {
+            // Get raw values
+            const recencyVal = parseInt(document.getElementById('recency-input').value) || 0;
+            const frequencyVal = parseInt(document.getElementById('frequency-input').value) || 0;
+            const monetaryVal = parseInt(document.getElementById('monetary-input').value) || 0;
+
+            // --- 1. Calculate R, F, M Scores (1-5) ---
+            
+            // Recency Score (Lower is better) - Defined thresholds
+            let rScore = 1;
+            if (recencyVal <= 7) { rScore = 5; } 
+            else if (recencyVal <= 15) { rScore = 4; } 
+            else if (recencyVal <= 30) { rScore = 3; } 
+            else if (recencyVal <= 60) { rScore = 2; }
+
+            // Frequency Score (Higher is better) - Defined thresholds (based on orders in last 3 months)
+            let fScore = 1;
+            if (frequencyVal >= 12) { fScore = 5; } // Avg 1+/week
+            else if (frequencyVal >= 9) { fScore = 4; } // Avg 3/month
+            else if (frequencyVal >= 5) { fScore = 3; } // Avg ~1.5/month
+            else if (frequencyVal >= 2) { fScore = 2; } // At least 2 orders
+
+            // Monetary Score (Higher is better) - Defined thresholds (based on total spend in last 3 months)
+            let mScore = 1;
+            if (monetaryVal > 36000) { mScore = 5; } // Champion level (>3k/wk * 12 wks)
+            else if (monetaryVal > 6000) { mScore = 4; } // Loyal level (>500/wk * 12 wks)
+            else if (monetaryVal > 1200) { mScore = 3; } // Potential level (>100/wk * 12 wks)
+            else if (monetaryVal >= 100) { mScore = 2; } // Minimal spend but >0
+
+            // --- 2. Map Scores to Segment (Simplified logic based on common patterns) ---
+            let segmentName = "General Customer"; // Default
+            let segmentClass = "text-slate-400"; // Default color
+
+            if (rScore >= 4 && fScore >= 4 && mScore >= 4) {
+                segmentName = "Champion";
+                segmentClass = "text-green-400";
+            } else if (fScore >= 4) { // High frequency is key for loyalty
+                segmentName = "Loyal Customer";
+                segmentClass = "text-sky-400";
+            } else if (rScore >= 4 && fScore >= 2) { // Recent and ordered more than once
+                 segmentName = "Potential Loyalist";
+                 segmentClass = "text-cyan-400";
+            } else if (rScore <= 2 && fScore >= 2) { // Not recent, but ordered more than once
+                 segmentName = "At-Risk Customer";
+                 segmentClass = "text-amber-400";
+            } else if (rScore <= 1 && fScore <= 1) { // Very old, very few orders
+                 segmentName = "Hibernating / Lost";
+                 segmentClass = "text-rose-400";
+            } else if (rScore >= 3 || fScore >= 3 || mScore >= 3) { // Shows some potential
+                 segmentName = "Potential Loyalist";
+                 segmentClass = "text-cyan-400";
+            } else if (rScore <= 2) { // Low recency, minimal other scores
+                 segmentName = "At-Risk Customer";
+                 segmentClass = "text-amber-400";
+            }
+
+
+            // --- 3. Display Results ---
+            document.getElementById('r-score').textContent = rScore;
+            document.getElementById('f-score').textContent = fScore;
+            document.getElementById('m-score').textContent = mScore;
+
+            const resultSegment = document.getElementById('rfm-result-segment');
+            const segmentNameEl = document.getElementById('segment-name');
+            
+            segmentNameEl.textContent = segmentName;
+            // Reset all color classes
+            segmentNameEl.className = "text-4xl font-bold";
+            // Add the new color class
+            segmentNameEl.classList.add(segmentClass);
+            
+            // Apply background color to match - slight tint
+             const bgColorClass = segmentClass.replace('text-', 'bg-').replace('-400', '-900/30'); // Using a subtle background tint
+             resultSegment.className = "p-6 rounded-lg " + bgColorClass;
+
+            // Show the result section
+            document.getElementById('rfm-result').style.display = 'block';
+            
+            // Trigger transition
+            // Force reflow before adding class
+             void resultSegment.offsetWidth; 
+             resultSegment.classList.add('show');
+        });
+    </script>
+</body>
+</html>
+
+

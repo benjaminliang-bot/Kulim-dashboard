@@ -1,0 +1,62 @@
+{
+  "Darren": {
+    "total_ads": 444332.6,
+    "ads_pct_of_revenue": 7.63,
+    "ads_pct_of_gmv": 1.8347522121184554,
+    "commission_pct_of_gmv": 22.21935992605088,
+    "ads_growth_6m": 10.6608600511717,
+    "ads_per_merchant": 2650.0950298210737,
+    "ads_per_order": 0.7602901997690037,
+    "first_month_ads": 63722.72,
+    "last_month_ads": 70516.11,
+    "monthly_trend": [
+      63722.72,
+      70659.32,
+      70994.26,
+      79982.54,
+      88457.65,
+      70516.11
+    ],
+    "portfolio_size": 189
+  },
+  "Suki": {
+    "total_ads": 256430.47999999998,
+    "ads_pct_of_revenue": 5.17,
+    "ads_pct_of_gmv": 1.2768936781060047,
+    "commission_pct_of_gmv": 23.423137330489094,
+    "ads_growth_6m": 25.768008350124592,
+    "ads_per_merchant": 1635.0508820403822,
+    "ads_per_order": 0.4909743073279353,
+    "first_month_ads": 38303.62,
+    "last_month_ads": 48173.7,
+    "monthly_trend": [
+      38303.62,
+      38695.02,
+      34865.93,
+      47826.6,
+      48565.61,
+      48173.7
+    ],
+    "portfolio_size": 162
+  },
+  "Chia Yee": {
+    "total_ads": 345614.15,
+    "ads_pct_of_revenue": 4.79,
+    "ads_pct_of_gmv": 1.1178214306477368,
+    "commission_pct_of_gmv": 22.230887463261332,
+    "ads_growth_6m": -4.43807167430915,
+    "ads_per_merchant": 2015.2428571428572,
+    "ads_per_order": 0.535575161859188,
+    "first_month_ads": 61999.9,
+    "last_month_ads": 59248.3,
+    "monthly_trend": [
+      61999.9,
+      53233.36,
+      50024.11,
+      60630.99,
+      60477.49,
+      59248.3
+    ],
+    "portfolio_size": 186
+  }
+}

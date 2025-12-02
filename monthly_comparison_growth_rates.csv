@@ -1,0 +1,12 @@
+Metric,Sep_vs_Aug_Delta,Sep_vs_Aug_Growth_Pct,Oct_vs_Sep_Delta,Oct_vs_Sep_Growth_Pct,Aug_to_Oct_Total_Growth_Pct
+Local_Eaters,8802,0.5,63640,3.9,4.5
+Foreign_Eaters,-14233,-10.3,6311,5.1,-5.7
+Total_Eaters,-5431,-0.3,69951,4.0,3.7
+Local_Orders,-238262,-3.3,508547,7.3,3.8
+Foreign_Orders,-33216,-7.5,35893,8.8,0.6
+Total_Orders,-271478,-3.6,544440,7.4,3.6
+Local_GMV_MYR,-5494343.58,-2.2,16034875.40,6.7,4.3
+Foreign_GMV_MYR,-1872435.25,-9.7,1149111.58,6.6,-3.6
+Total_GMV_MYR,-7366778.83,-2.8,17184986.98,6.7,3.7
+
+

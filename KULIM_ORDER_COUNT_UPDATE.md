@@ -55,3 +55,4 @@ All queries now properly count **distinct completed orders** to avoid double-cou
 
 Note: The numbers remain the same because `f_food_metrics` already appears to have one row per order, but the query logic is now explicitly using DISTINCT for accuracy and future-proofing.
 
+

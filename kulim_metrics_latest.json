@@ -1,0 +1,28 @@
+{
+  "202509": {
+    "total_gmv": 501930.40,
+    "completed_orders": 16000,
+    "active_merchants": 139,
+    "unique_passengers": 8235,
+    "avg_order_value": 31.37
+  },
+  "202510": {
+    "total_gmv": 570601.70,
+    "completed_orders": 18046,
+    "active_merchants": 143,
+    "unique_passengers": 9000,
+    "avg_order_value": 31.62
+  },
+  "202511": {
+    "total_gmv": 468431.58,
+    "completed_orders": 14671,
+    "active_merchants": 143,
+    "unique_passengers": 7813,
+    "avg_order_value": 31.93
+  }
+}
+
+
+
+
+

@@ -1,0 +1,33 @@
+================================================================================
+SEGMENTATION UPDATE RECOMMENDATIONS
+================================================================================
+
+Based on the Penang structure from Google Sheets:
+
+1. AMBD CODES (Primary Segmentation):
+   - MGS: Merchant Growth Specialist (high-value, growth focus)
+   - NMA: New Merchant Acquisition (newer merchants)
+   - MA: Merchant Acquisition (acquisition focus)
+
+2. GEOGRAPHIC SEGMENTATION:
+   - Island vs Mainland classification
+   - Area Name (Georgetown, Tanjung Bungah, etc.)
+
+3. TEMPORAL SEGMENTATION:
+   - Best Window: LUNCH vs DINNER
+
+4. ASSIGNMENT:
+   - MGS: Merchant Growth Specialist name
+   - AM: Account Manager name/email
+
+================================================================================
+IMPLEMENTATION NOTES:
+================================================================================
+
+The AMBD code should be used to update:
+- custom_segment field in d_merchant table
+- Or create a new segmentation field if needed
+
+Geographic and temporal data can be stored in:
+- Additional custom fields
+- Or in a separate merchant attributes table

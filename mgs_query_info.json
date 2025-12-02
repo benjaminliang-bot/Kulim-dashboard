@@ -1,0 +1,20 @@
+{
+  "mgs_names": [
+    "Teoh Jun Ling",
+    "Lee Sook Chin",
+    "Low Jia Ying",
+    "Hon Yi Ni"
+  ],
+  "merchant_counts": {
+    "Teoh Jun Ling": 576,
+    "Lee Sook Chin": 329,
+    "Low Jia Ying": 324,
+    "Hon Yi Ni": 274
+  },
+  "query_files": {
+    "Teoh Jun Ling": "query_teoh_jun_ling_impact_final.sql",
+    "Lee Sook Chin": "query_lee_sook_chin_impact_final.sql",
+    "Low Jia Ying": "query_low_jia_ying_impact_final.sql",
+    "Hon Yi Ni": "query_hon_yi_ni_impact_final.sql"
+  }
+}
